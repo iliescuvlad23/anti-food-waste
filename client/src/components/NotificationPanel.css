@@ -1,0 +1,58 @@
+.notification-panel {
+  background: white;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notification-section {
+  margin-bottom: 1rem;
+}
+
+.notification-section:last-child {
+  margin-bottom: 0;
+}
+
+.notification-section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.expired-section {
+  background: #fee;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border-left: 4px solid #e74c3c;
+}
+
+.expired-section h3 {
+  color: #c00;
+}
+
+.expiring-section {
+  background: #fff3cd;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border-left: 4px solid #ffc107;
+}
+
+.expiring-section h3 {
+  color: #856404;
+}
+
+.notification-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-section li {
+  padding: 0.25rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}

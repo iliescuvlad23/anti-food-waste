@@ -1,0 +1,132 @@
+.item-list h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.item-list-empty {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.item-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.item-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 0.75rem;
+}
+
+.item-header h3 {
+  color: #333;
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+}
+
+.expiry-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-left: 0.5rem;
+}
+
+.expiry-badge.expired {
+  background: #fee;
+  color: #c00;
+}
+
+.expiry-badge.expiring-today {
+  background: #ffeaa7;
+  color: #d63031;
+}
+
+.expiry-badge.expiring-soon {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.expiry-badge.expiring-later {
+  background: #d4edda;
+  color: #155724;
+}
+
+.item-details {
+  margin-bottom: 1rem;
+}
+
+.item-details p {
+  margin: 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.item-actions {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 0.75rem;
+}
+
+.shareable-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.shareable-toggle input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.item-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.item-buttons button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.edit-btn {
+  background: #667eea;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #5568d3;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}

@@ -1,0 +1,90 @@
+.category-list h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.category-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-item {
+  padding: 0.75rem;
+  text-align: left;
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-item:hover {
+  background: #e9ecef;
+  border-color: #667eea;
+}
+
+.category-item.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.add-category-form {
+  margin-top: 1rem;
+}
+
+.add-category-form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.add-category-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-category-actions button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.add-category-actions button[type="submit"] {
+  background: #667eea;
+  color: white;
+}
+
+.add-category-actions button[type="submit"]:hover:not(:disabled) {
+  background: #5568d3;
+}
+
+.add-category-actions button[type="button"] {
+  background: #e0e0e0;
+}
+
+.add-category-actions button[type="button"]:hover:not(:disabled) {
+  background: #d0d0d0;
+}
+
+.add-category-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #667eea;
+}
+
+.add-category-btn:hover {
+  background: #e9ecef;
+}
