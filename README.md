@@ -53,6 +53,7 @@ Edit `.env` and set your database URL and JWT secret:
 PORT=3001
 DATABASE_URL="postgresql://user:password@localhost:5432/foodwaste?schema=public"
 JWT_SECRET=your-secret-key-change-in-production
+FRONTEND_URL=http://localhost:3000
 ```
 
 Generate Prisma client and run migrations:
@@ -108,14 +109,35 @@ npm run dev
 
 The frontend will run on `http://localhost:3000`
 
+## Features
+
+### Core Features
+- User authentication (register/login with JWT)
+- Category management
+- Product item tracking with expiry dates
+- Expiry notifications (expiring soon and expired items)
+- Shareable items toggle
+
+### Community Features
+- **Friend Groups**: Create groups and invite members via email
+- **Preferences**: Set preference tags for group members
+- **Shared Items Feed**: Browse items shared by other users
+- **Claiming System**: Request to claim shared items, approve/reject claims
+- **Product Search**: Search products by name or barcode using Open Food Facts API
+- **Social Sharing**: Share items via Web Share API or copy link
+- **Public Share Pages**: Public URLs for shareable items
+
 ## Usage
 
 1. Open `http://localhost:3000` in your browser
 2. Register a new account or login
 3. Create categories for your food items
-4. Add items with expiry dates
+4. Add items with expiry dates (use product search to auto-fill details)
 5. View expiring and expired items in the notification panel
 6. Toggle items as "available to share"
+7. Create friend groups and invite others
+8. Browse shared items and claim items you need
+9. Manage incoming claim requests
 
 ## API Documentation
 
@@ -146,6 +168,44 @@ The frontend will run on `http://localhost:3000`
 - `PATCH /items/:id` - Update an item (requires auth)
 - `PATCH /items/:id/shareable` - Toggle shareable status (requires auth)
 - `DELETE /items/:id` - Delete an item (requires auth)
+
+### Groups
+
+- `POST /groups` - Create a group (requires auth)
+  - Body: `{ "name": "Family" }`
+- `GET /groups` - Get user's groups (requires auth)
+- `POST /groups/:id/invite` - Invite user to group (requires auth)
+  - Body: `{ "email": "user@example.com" }`
+- `GET /groups/:id/members` - Get group members (requires auth)
+- `PATCH /groups/:id/members/:memberId/preferences` - Update member preferences (requires auth)
+  - Body: `{ "preferenceTags": ["vegetarian", "gluten-free"] }`
+
+### Invitations
+
+- `POST /invitations/accept` - Accept invitation by token (requires auth)
+  - Body: `{ "token": "invitation-token" }`
+
+### Shared Items
+
+- `GET /shared-items` - Get all shareable items (requires auth)
+  - Query params: `?q=search&category=category` (optional)
+
+### Claims
+
+- `POST /claims/items/:id/claims` - Create claim request (requires auth)
+- `GET /claims/incoming` - Get incoming claims (requires auth)
+- `GET /claims/mine` - Get my claims (requires auth)
+- `PATCH /claims/:id` - Update claim status (requires auth)
+  - Body: `{ "status": "approved" | "rejected" | "cancelled" }`
+
+### External API
+
+- `GET /external/products/search?q=milk` - Search products by name (requires auth)
+- `GET /external/products/barcode/:code` - Get product by barcode (requires auth)
+
+### Public
+
+- `GET /share/item/:id` - Get public share item details (no auth required)
 
 All protected routes require an `Authorization: Bearer <token>` header.
 
@@ -228,9 +288,24 @@ All protected routes require an `Authorization: Bearer <token>` header.
 - [ ] `client/.env` file exists with `VITE_API_URL`
 - [ ] `client/node_modules` exists (run `npm install` in client)
 
+## Environment Variables
+
+### Server (.env)
+- `PORT` - Server port (default: 3001)
+- `DATABASE_URL` - PostgreSQL connection string
+- `JWT_SECRET` - Secret key for JWT tokens
+- `FRONTEND_URL` - Frontend URL for invitation links (default: http://localhost:3000)
+
+### Client (.env)
+- `VITE_API_URL` - Backend API URL (default: http://localhost:3001)
+
 ## Notes
 
 - All user data is scoped to the authenticated user
 - Categories are user-specific
 - Items are automatically filtered by the authenticated user
 - Expiry notifications show items expiring within 3 days by default
+- Group invitations expire after 7 days
+- Only one approved claim per item is allowed
+- Users cannot claim their own items
+- External product search uses Open Food Facts API (no API key required)

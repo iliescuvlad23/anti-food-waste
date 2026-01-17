@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import api from '../api/client';
 import { removeToken } from '../utils/auth';
 import CategoryList from '../components/CategoryList';
@@ -115,6 +115,13 @@ function Dashboard({ onLogout }) {
     <div className="dashboard">
       <header className="dashboard-header">
         <h1>Anti Food Waste</h1>
+        <nav className="dashboard-nav">
+          <NavLink to="/dashboard" end>Dashboard</NavLink>
+          <NavLink to="/groups">Groups</NavLink>
+          <NavLink to="/shared-items">Shared Items</NavLink>
+          <NavLink to="/claims/incoming">Incoming Claims</NavLink>
+          <NavLink to="/claims/mine">My Claims</NavLink>
+        </nav>
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>

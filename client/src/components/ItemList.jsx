@@ -36,6 +36,36 @@ function ItemList({ items, onEdit, onDelete, onToggleShareable }) {
     return { label: `Expires in ${days} days`, class: 'expiring-later' };
   };
 
+  const handleShare = async (item) => {
+    const shareUrl = `${window.location.origin}/share/item/${item.id}`;
+    const shareText = `Check out this ${item.name} (${item.quantity}) expiring on ${formatDate(item.expiryDate)}!`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: item.name,
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          copyToClipboard(shareUrl, shareText);
+        }
+      }
+    } else {
+      copyToClipboard(shareUrl, shareText);
+    }
+  };
+
+  const copyToClipboard = (url, text) => {
+    const fullText = `${text}\n${url}`;
+    navigator.clipboard.writeText(fullText).then(() => {
+      alert('Share link copied to clipboard!');
+    }).catch(() => {
+      prompt('Copy this link:', url);
+    });
+  };
+
   return (
     <div className="item-list">
       <h2>Items {items.length > 0 && `(${items.length})`}</h2>
@@ -71,6 +101,11 @@ function ItemList({ items, onEdit, onDelete, onToggleShareable }) {
                   <span>Available to share</span>
                 </label>
                 <div className="item-buttons">
+                  {item.isShareable && (
+                    <button onClick={() => handleShare(item)} className="share-btn">
+                      Share
+                    </button>
+                  )}
                   <button onClick={() => onEdit(item)} className="edit-btn">
                     Edit
                   </button>

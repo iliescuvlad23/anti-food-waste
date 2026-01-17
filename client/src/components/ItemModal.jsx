@@ -10,6 +10,10 @@ function ItemModal({ item, categories, onClose, onSave }) {
   const [isShareable, setIsShareable] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [barcode, setBarcode] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
 
   useEffect(() => {
     if (item) {
@@ -27,6 +31,51 @@ function ItemModal({ item, categories, onClose, onSave }) {
       setExpiryDate(tomorrow.toISOString().split('T')[0]);
     }
   }, [item, categories]);
+
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return;
+
+    setSearching(true);
+    try {
+      const response = await api.get(`/external/products/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchResults(response.data.products || []);
+    } catch (err) {
+      console.error('Search failed:', err);
+      setSearchResults([]);
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  const handleBarcodeLookup = async () => {
+    if (!barcode.trim()) return;
+
+    setSearching(true);
+    try {
+      const response = await api.get(`/external/products/barcode/${barcode}`);
+      const product = response.data.product;
+      setName(product.name);
+      if (product.quantity) setQuantity(product.quantity);
+      if (product.categories && product.categories.length > 0) {
+        const matchingCategory = categories.find(cat =>
+          product.categories.some(pCat => pCat.toLowerCase().includes(cat.name.toLowerCase()))
+        );
+        if (matchingCategory) setCategoryId(matchingCategory.id);
+      }
+      setSearchResults([]);
+    } catch (err) {
+      alert('Product not found. Please enter details manually.');
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  const handleSelectProduct = (product) => {
+    setName(product.name);
+    if (product.quantity) setQuantity(product.quantity);
+    setSearchResults([]);
+    setSearchQuery('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,6 +129,51 @@ function ItemModal({ item, categories, onClose, onSave }) {
           </button>
         </div>
         <form onSubmit={handleSubmit}>
+          {!item && (
+            <div className="product-search-section">
+              <h3>Search Product Info</h3>
+              <div className="search-controls">
+                <input
+                  type="text"
+                  placeholder="Search by name..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleSearch())}
+                />
+                <button type="button" onClick={handleSearch} disabled={searching}>
+                  {searching ? 'Searching...' : 'Search'}
+                </button>
+              </div>
+              <div className="barcode-controls">
+                <input
+                  type="text"
+                  placeholder="Or enter barcode..."
+                  value={barcode}
+                  onChange={(e) => setBarcode(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleBarcodeLookup())}
+                />
+                <button type="button" onClick={handleBarcodeLookup} disabled={searching}>
+                  {searching ? 'Looking up...' : 'Lookup'}
+                </button>
+              </div>
+              {searchResults.length > 0 && (
+                <div className="search-results">
+                  <h4>Select a product:</h4>
+                  {searchResults.map((product, idx) => (
+                    <div
+                      key={idx}
+                      className="search-result-item"
+                      onClick={() => handleSelectProduct(product)}
+                    >
+                      <strong>{product.name}</strong>
+                      {product.brand && <span> - {product.brand}</span>}
+                      {product.quantity && <div className="product-quantity">{product.quantity}</div>}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           <div className="form-group">
             <label>Name *</label>
             <input

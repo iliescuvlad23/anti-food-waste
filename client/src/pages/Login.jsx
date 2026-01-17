@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../api/client';
 import { setToken } from '../utils/auth';
 import './Auth.css';
@@ -10,6 +10,7 @@ function Login({ onLogin }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +21,8 @@ function Login({ onLogin }) {
       const response = await api.post('/auth/login', { email, password });
       setToken(response.data.token);
       onLogin();
-      navigate('/dashboard');
+      const redirect = searchParams.get('redirect') || '/dashboard';
+      navigate(redirect);
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     } finally {

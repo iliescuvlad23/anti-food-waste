@@ -1,12 +1,13 @@
 .notification-panel {
-  background: white;
+  background: #2a2a2a;
   margin: 1rem;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
+  border: 1px solid #333;
 }
 
 .notification-section {
@@ -20,29 +21,29 @@
 .notification-section h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #e0e0e0;
 }
 
 .expired-section {
-  background: #fee;
+  background: #3a1a1a;
   padding: 0.75rem;
   border-radius: 4px;
-  border-left: 4px solid #e74c3c;
+  border-left: 4px solid #ff6b6b;
 }
 
 .expired-section h3 {
-  color: #c00;
+  color: #ff6b6b;
 }
 
 .expiring-section {
-  background: #fff3cd;
+  background: #3a3a1a;
   padding: 0.75rem;
   border-radius: 4px;
-  border-left: 4px solid #ffc107;
+  border-left: 4px solid #ffd93d;
 }
 
 .expiring-section h3 {
-  color: #856404;
+  color: #ffd93d;
 }
 
 .notification-section ul {
@@ -53,6 +54,6 @@
 
 .notification-section li {
   padding: 0.25rem 0;
-  color: #666;
+  color: #b0b0b0;
   font-size: 0.9rem;
 }

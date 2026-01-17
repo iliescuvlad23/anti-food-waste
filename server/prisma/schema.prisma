@@ -15,6 +15,10 @@ model User {
   updatedAt     DateTime      @updatedAt
   categories    Category[]
   productItems  ProductItem[]
+  ownedGroups   FriendGroup[]
+  groupMembers  GroupMember[]
+  invitations   Invitation[]
+  claims        Claim[]
 }
 
 model Category {
@@ -28,15 +32,66 @@ model Category {
 }
 
 model ProductItem {
-  id          String    @id @default(uuid())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  categoryId  String
-  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId   String
+  category     Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  name         String
+  quantity     String
+  expiryDate   DateTime
+  isShareable  Boolean   @default(false)
+  isClaimed    Boolean   @default(false)
+  reservedUntil DateTime?
+  claims       Claim[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model FriendGroup {
+  id          String       @id @default(uuid())
+  ownerUserId String
+  owner       User         @relation(fields: [ownerUserId], references: [id], onDelete: Cascade)
   name        String
-  quantity    String
-  expiryDate  DateTime
-  isShareable Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  members     GroupMember[]
+  invitations Invitation[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model GroupMember {
+  id            String      @id @default(uuid())
+  groupId       String
+  group         FriendGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preferenceTags String[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([groupId, userId])
+}
+
+model Invitation {
+  id        String      @id @default(uuid())
+  groupId   String
+  group     FriendGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  email     String
+  token     String      @unique
+  status    String      @default("pending")
+  createdAt DateTime    @default(now())
+  expiresAt DateTime
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Claim {
+  id              String      @id @default(uuid())
+  itemId          String
+  item            ProductItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  claimedByUserId String
+  claimedBy       User        @relation(fields: [claimedByUserId], references: [id], onDelete: Cascade)
+  status          String      @default("requested")
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }

@@ -3,27 +3,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0A2A66 0%, #1a1a1a 100%);
 }
 
 .auth-card {
-  background: white;
+  background: #2a2a2a;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   width: 100%;
   max-width: 400px;
+  border: 1px solid #333;
 }
 
 .auth-card h1 {
   text-align: center;
-  color: #333;
+  color: #e0e0e0;
   margin-bottom: 0.5rem;
 }
 
 .auth-card h2 {
   text-align: center;
-  color: #666;
+  color: #b0b0b0;
   margin-bottom: 1.5rem;
   font-weight: 400;
 }
@@ -35,27 +36,33 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #e0e0e0;
   font-weight: 500;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid #444;
   border-radius: 4px;
   font-size: 1rem;
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.form-group input::placeholder {
+  color: #888;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #0A2A66;
 }
 
 button {
   width: 100%;
   padding: 0.75rem;
-  background: #667eea;
+  background: #0A2A66;
   color: white;
   border: none;
   border-radius: 4px;
@@ -65,7 +72,7 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background: #5568d3;
+  background: #0d3a7a;
 }
 
 button:disabled {
@@ -74,7 +81,7 @@ button:disabled {
 }
 
 .error {
-  color: #e74c3c;
+  color: #ff6b6b;
   margin-top: 0.5rem;
   text-align: center;
   font-size: 0.9rem;
@@ -83,11 +90,11 @@ button:disabled {
 .auth-link {
   text-align: center;
   margin-top: 1rem;
-  color: #666;
+  color: #b0b0b0;
 }
 
 .auth-link a {
-  color: #667eea;
+  color: #0A2A66;
   text-decoration: none;
 }
 

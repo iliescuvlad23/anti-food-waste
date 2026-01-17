@@ -1,0 +1,110 @@
+.share-item-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0A2A66 0%, #1a1a1a 100%);
+  padding: 2rem;
+}
+
+.share-item-card {
+  background: #2a2a2a;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  width: 100%;
+  border: 1px solid #444;
+}
+
+.share-item-card h1 {
+  text-align: center;
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+}
+
+.item-info h2 {
+  color: #0A2A66;
+  margin-bottom: 1rem;
+}
+
+.item-details {
+  margin: 1.5rem 0;
+}
+
+.item-details p {
+  margin: 0.75rem 0;
+  color: #b0b0b0;
+}
+
+.claim-button {
+  width: 100%;
+  padding: 1rem;
+  background: #0A2A66;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.claim-button:hover:not(:disabled) {
+  background: #0d3a7a;
+}
+
+.claim-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.claimed-notice {
+  padding: 1rem;
+  background: #3a3a1a;
+  color: #ffd93d;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.share-item-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #b0b0b0;
+  font-size: 0.9rem;
+}
+
+.share-item-footer a {
+  color: #0A2A66;
+  text-decoration: none;
+}
+
+.share-item-footer a:hover {
+  text-decoration: underline;
+}
+
+.share-item-loading,
+.share-item-error {
+  text-align: center;
+  padding: 3rem;
+  color: #b0b0b0;
+}
+
+.share-item-error h2 {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+}
+
+.share-item-error a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #0A2A66;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.share-item-error a:hover {
+  background: #0d3a7a;
+}
